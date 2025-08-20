@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taran’s Music Player</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="player">
+    <h1>🎵 Now Playing</h1>
+    <img id="cover" src="" alt="Cover Art" />
+    <div id="track-info">
+      <h2 id="title"></h2>
+      <h3 id="artist"></h3>
+      <p id="description"></p>
+    </div>
+    <audio id="audio" controls></audio>
+    <div id="playlist"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+body {
+  font-family: sans-serif;
+  background-color: #121212;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.player {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+#playlist div {
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+#playlist div:hover {
+  color: #1db954;
+}
+const songs = [
+  {
+    title: "Track One",
+    artist: "Artist A",
+    src: "assets/song1.mp3",
+    cover: "assets/covers/song1.jpg",
+    description: "A bright, genre-blending opener with layered textures that set an uplifting tone."
+  },
+  {
+    title: "Track Two",
+    artist: "Artist B",
+    src: "assets/song2.mp3",
+    cover: "assets/covers/song2.jpg",
+    description: "Moody yet driven, this track rides deep basslines and crisp percussion."
+  }
+  // Add more tracks following this format
+];
+
+const audio = document.getElementById('audio');
+const title = document.getElementById('title');
+const artist = document.getElementById('artist');
+const description = document.getElementById('description');
+const cover = document.getElementById('cover');
+const playlist = document.getElementById('playlist');
+
+songs.forEach((song, index) => {
+  const div = document.createElement('div');
+  div.textContent = `${song.title} – ${song.artist}`;
+  div.addEventListener('click', () => loadTrack(index));
+  playlist.appendChild(div);
+});
+
+function loadTrack(index) {
+  const song = songs[index];
+  audio.src = song.src;
+  title.textContent = song.title;
+  artist.textContent = song.artist;
+  description.textContent = song.description;
+  cover.src = song.cover || '';
+  audio.play();
+}
+
+loadTrack(0);
+# Music Player
+
+1. Put your `.mp3` files into `assets/` and name them exactly as in `script.js`.
+2. (Optional) Put cover images into `assets/covers/` with matching filenames.
+3. Open `index.html` in a browser to test locally.
+4. Upload to GitHub and enable GitHub Pages for a live player.
